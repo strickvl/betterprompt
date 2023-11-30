@@ -36,9 +36,8 @@ def calculate_perplexity(prompt: str):
 
   token_logprobs = call_openai(prompt)
   for neg_log_likelihood in token_logprobs:
-    if neg_log_likelihood == None: #default to -100, handles the initial token case
+    if neg_log_likelihood is None: #default to -100, handles the initial token case
       neg_log_likelihood = -100
     nlls.append(neg_log_likelihood)
 
-  perplexity = math.exp(sum(nlls)/len(token_logprobs))
-  return perplexity
+  return math.exp(sum(nlls)/len(token_logprobs))
